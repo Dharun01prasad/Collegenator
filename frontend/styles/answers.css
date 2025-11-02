@@ -1,0 +1,133 @@
+body {
+    background-image: url('/frontend/images/final.png');
+    background-repeat: no-repeat;
+    background-color: black;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.Header{
+    margin: 0 auto;
+    position: absolute;
+    top: 40px;
+    height: 100px;
+}
+
+.header-img{
+    height: 120px;
+}
+
+.akinator-genie-stand-alone {
+    height: 630px;
+    position: absolute;
+    top: 90px;
+    left: -350px; 
+     margin-left: 30%;
+}
+
+
+@media (max-width: 1333px ) {
+.Header{
+    margin: 0 auto;
+    position: absolute;
+    top: 20px;
+}
+.header-img{
+    height: 73px;
+}
+.container{
+    margin-top: 400px;}
+  /* .akinator-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 500px;
+  } */
+  .akinator-genie-stand-alone{
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 280px;
+    margin: 0;
+    margin-bottom: 20px;}
+    
+    .akinator-image-div{
+    margin-bottom: 250px;
+    }
+}
+.akinator-card {
+  width: 420px;
+  height: 500px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  overflow: hidden;
+}
+
+.header {
+  background-color: #0e3e52;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 12px 0;
+}
+
+.result-section {
+  padding: 20px;
+}
+
+.character {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2b2b2b;
+}
+
+.series {
+  font-style: italic;
+  color: #555;
+  margin-top: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+button {
+  padding: 8px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  background-color: #114f66;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0b3748;
+}
+
+.image-section img {
+  width: 100%;
+  display: block;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: #444;
+  padding: 10px;
+  background: #f5f7fa;
+  margin: 0;
+}

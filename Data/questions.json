@@ -1,0 +1,346 @@
+{
+    "q1": {
+        "question": "What is your character's Branch?",
+        "attribute": ["Branch"],
+        "options": "multiple",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q2"
+        },
+        "checker": "None"
+    },
+    "q2": {
+        "question": "Is your character a girl?",
+        "attribute": ["Gender"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q3"
+        },
+        "checker": ["girl"]
+    },
+    "q3": {
+        "question": "What is the section of your character?",
+        "attribute": ["Section"],
+        "options": "multiple",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q4"
+        },
+        "checker": "None"
+    },
+    "q4": {
+        "question": "Is your character the SDC/SLC/CR?",
+        "attribute": ["SLC/SDC/CR"],
+        "options": "multiple",
+        "next_question": {
+            "yes": "q5",
+            "no": "q8",
+            "default" : "q8"
+        },
+        "checker": ["sdc", "slc", "cr"]
+    },
+    "q5": {
+        "question": "Is your character the sdc?",
+        "attribute": ["SLC/SDC/CR"],
+        "options": "single",
+        "next_question":{
+            "yes": "q8",
+            "no": "q6",
+            "default" : "q8"
+        },
+        "checker": ["sdc"]
+    },
+    "q6": {
+        "question": "Is your character the slc?",
+        "attribute": ["SLC/SDC/CR"],
+        "options": "single",
+        "next_question": {
+            "yes": "q8",
+            "no": "q7",
+            "default" : "q8"
+        },
+        "checker": ["slc"]
+    },
+    "q7": {
+        "question": "Is your character the CR of his section?",
+        "attribute": ["SLC/SDC/CR"],
+        "options": "single",
+        "next_question": {
+            "yes": "q8",
+            "no": "q8",
+            "default" : "q8"
+        },
+        "checker": ["cr"]
+    },
+    "q8": {
+        "question": "Is your character in any of these clubs?[Epoch, Iota, Matrix, Gradient, Enigma, Nexsync, Ecell, Connexion, F/stops, Keynote, Miraki]",
+        "attribute": [
+            "CLUB"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "q9",
+            "no": "q20", 
+            "default" : "q20"
+        },
+        "checker": ["epoch", "iota", "matrix", "gradient", "enigma", "nexsync", "ecell", "connexion", "f/stops", "keynote", "miraki"]
+    },
+    "q9":{
+        "question": "Is your character in Nexsync?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q10",
+            "default" : "q10"
+        },
+        "checker": ["nexsync"]
+    },
+    "q10":{
+        "question": "Is your character in Epoch?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q11",
+            "default" : "q11"
+        },
+        "checker": ["epoch"]
+    },
+    "q11":{
+        "question": "Is your character in Iota?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q12",
+            "default" : "q12"
+        },
+        "checker": ["iota"]
+    },
+    "q12":{
+        "question": "Is your character in Matrix?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q13",
+            "default" : "q13"
+        },
+        "checker": ["matrix"]
+    },
+    "q13":{
+        "question": "Is your character in Enigma?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q14",
+            "default" : "q14"
+        },
+        "checker": ["enigma"]
+    },
+    "q14":{
+        "question": "Is your character in Gradient?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q15",
+            "default" : "q15"
+        },
+        "checker": ["gradient"]
+    },
+    "q15":{
+        "question": "Is your character in Ecell?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q16",
+            "default" : "q16"
+        },
+        "checker": ["ecell"]
+    },
+    "q16":{
+        "question": "Is your character in Connexion?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q17",
+            "default" : "q17"
+        },
+        "checker": ["connexion"]
+    },
+    "q17":{
+        "question": "Is your character in F/Stops?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q18",
+            "default" : "q18"
+        },
+        "checker": ["f/stops"]
+    },
+    "q18":{
+        "question": "Is your character in Keynote?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q19",
+            "default" : "q19"
+        },
+        "checker": ["keynote"]
+    },
+    "q19":{
+        "question": "Is your character in Miraki?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "q20",
+            "default" : "q20"
+        },
+        "checker": ["miraki"]
+    },
+    "q20":{
+        "question": "What was the SEM 1 section of your character?",
+        "attribute": [
+            "SEM 1-SECTION"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q21"
+        },
+        "checker": "None"
+    },
+    "q21":{
+        "question": "Was your character in English Essentials?",
+        "attribute": [
+            "Sem 1 EE"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "q22",
+            "no": "q23",
+            "default" : "q23"
+        },
+        "checker": ["yes"]
+    },
+    "q22":{
+        "question": "What was their section in ee??",
+        "attribute": [
+            "EE-SEC"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q23"
+        },
+        "checker": ["YES"]
+    },
+    "q23":{
+        "question": "Does your character work in HCI lab??",
+        "attribute": [
+            "HCI-INTERN"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q24"
+        },
+        "checker": ["HCI-INTERN"]
+    },
+    "q24":{
+        "question": "What is your character's State??",
+        "attribute": [
+            "State"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q25"
+        },
+        "checker": "None"
+    },  
+    "q25":{
+        "question": "Which city is your character from??",
+        "attribute": [
+            "City"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "None"
+        },
+        "checker": "None"
+    }
+}

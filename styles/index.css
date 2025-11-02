@@ -1,6 +1,0 @@
-body {
-            background-image: url('../images/check.png'); /* Replace 'your-image.jpg' with the path to your image */
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Keeps the image fixed during scrolling */
-            margin: 0; /* Remove default body margin */
-        }
