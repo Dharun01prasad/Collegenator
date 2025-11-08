@@ -1,26 +1,27 @@
 {
     "q1": {
+        "question": "Is your character a girl?",
+        "attribute": ["Gender-Girl?"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q2"
+        },
+        "checker": ["yes"]
+    },
+    "q2": {
         "question": "What is your character's Branch?",
         "attribute": ["Branch"],
         "options": "multiple",
         "next_question": {
             "yes": "None",
             "no": "None",
-            "default" : "q2"
+            "default" : "q3"
         },
         "checker": "None"
     },
-    "q2": {
-        "question": "Is your character a girl?",
-        "attribute": ["Gender"],
-        "options": "single",
-        "next_question": {
-            "yes": "None",
-            "no": "None",
-            "default" : "q3"
-        },
-        "checker": ["girl"]
-    },
+    
     "q3": {
         "question": "What is the section of your character?",
         "attribute": ["Section"],
@@ -34,7 +35,7 @@
     },
     "q4": {
         "question": "Is your character the SDC/SLC/CR?",
-        "attribute": ["SLC/SDC/CR"],
+        "attribute": ["slc/sdc/cr"],
         "options": "multiple",
         "next_question": {
             "yes": "q5",
@@ -45,7 +46,7 @@
     },
     "q5": {
         "question": "Is your character the sdc?",
-        "attribute": ["SLC/SDC/CR"],
+        "attribute": ["slc/sdc/cr"],
         "options": "single",
         "next_question":{
             "yes": "q8",
@@ -56,7 +57,7 @@
     },
     "q6": {
         "question": "Is your character the slc?",
-        "attribute": ["SLC/SDC/CR"],
+        "attribute": ["slc/sdc/cr"],
         "options": "single",
         "next_question": {
             "yes": "q8",
@@ -67,7 +68,7 @@
     },
     "q7": {
         "question": "Is your character the CR of his section?",
-        "attribute": ["SLC/SDC/CR"],
+        "attribute": ["slc/sdc/cr"],
         "options": "single",
         "next_question": {
             "yes": "q8",
@@ -79,7 +80,7 @@
     "q8": {
         "question": "Is your character in any of these clubs?[Epoch, Iota, Matrix, Gradient, Enigma, Nexsync, Ecell, Connexion, F/stops, Keynote, Miraki]",
         "attribute": [
-            "CLUB"
+            "CLUB-CHECKER"
         ],
         "options": "single",
         "next_question": {
@@ -87,7 +88,7 @@
             "no": "q20", 
             "default" : "q20"
         },
-        "checker": ["epoch", "iota", "matrix", "gradient", "enigma", "nexsync", "ecell", "connexion", "f/stops", "keynote", "miraki"]
+        "checker": ["yes"]
     },
     "q9":{
         "question": "Is your character in Nexsync?",
@@ -99,11 +100,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q26",
             "no": "q10",
             "default" : "q10"
         },
         "checker": ["nexsync"]
+    },
+    "q26": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q10"
+        },
+        "checker": "None"
     },
     "q10":{
         "question": "Is your character in Epoch?",
@@ -115,11 +127,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q27",
             "no": "q11",
             "default" : "q11"
         },
         "checker": ["epoch"]
+    },
+    "q27": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q11"
+        },
+        "checker": "None"
     },
     "q11":{
         "question": "Is your character in Iota?",
@@ -131,11 +154,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q28",
             "no": "q12",
             "default" : "q12"
         },
         "checker": ["iota"]
+    },
+    "q28": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q12"
+        },
+        "checker": "None"
     },
     "q12":{
         "question": "Is your character in Matrix?",
@@ -147,11 +181,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q29",
             "no": "q13",
             "default" : "q13"
         },
         "checker": ["matrix"]
+    },
+    "q29": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q13"
+        },
+        "checker": "None"
     },
     "q13":{
         "question": "Is your character in Enigma?",
@@ -163,11 +208,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q30",
             "no": "q14",
             "default" : "q14"
         },
         "checker": ["enigma"]
+    },
+    "q30": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q14"
+        },
+        "checker": "None"
     },
     "q14":{
         "question": "Is your character in Gradient?",
@@ -179,11 +235,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q31",
             "no": "q15",
             "default" : "q15"
         },
         "checker": ["gradient"]
+    },
+    "q31": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q15"
+        },
+        "checker": "None"
     },
     "q15":{
         "question": "Is your character in Ecell?",
@@ -195,11 +262,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q32",
             "no": "q16",
             "default" : "q16"
         },
         "checker": ["ecell"]
+    },
+    "q32": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q16"
+        },
+        "checker": "None"
     },
     "q16":{
         "question": "Is your character in Connexion?",
@@ -211,11 +289,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q33",
             "no": "q17",
             "default" : "q17"
         },
         "checker": ["connexion"]
+    },
+    "q33": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q17"
+        },
+        "checker": "None"
     },
     "q17":{
         "question": "Is your character in F/Stops?",
@@ -227,11 +316,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q34",
             "no": "q18",
             "default" : "q18"
         },
         "checker": ["f/stops"]
+    },
+    "q34": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q18"
+        },
+        "checker": "None"
     },
     "q18":{
         "question": "Is your character in Keynote?",
@@ -243,11 +343,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q35",
             "no": "q19",
             "default" : "q19"
         },
         "checker": ["keynote"]
+    },
+    "q35": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q19"
+        },
+        "checker": "None"
     },
     "q19":{
         "question": "Is your character in Miraki?",
@@ -259,11 +370,22 @@
         ],
         "options": "single",
         "next_question": {
-            "yes": "None",
+            "yes": "q36",
             "no": "q20",
             "default" : "q20"
         },
         "checker": ["miraki"]
+    },
+    "q36": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q20"
+        },
+        "checker": "None"
     },
     "q20":{
         "question": "What was the SEM 1 section of your character?",
@@ -286,7 +408,7 @@
         "options": "single",
         "next_question": {
             "yes": "q22",
-            "no": "q23",
+            "no": "q37",
             "default" : "q23"
         },
         "checker": ["yes"]
@@ -300,7 +422,7 @@
         "next_question": {
             "yes": "None",
             "no": "None",
-            "default" : "q23"
+            "default" : "q37"
         },
         "checker": ["YES"]
     },
@@ -315,7 +437,7 @@
             "no": "None",
             "default" : "q24"
         },
-        "checker": ["HCI-INTERN"]
+        "checker": ["Yes"]
     },
     "q24":{
         "question": "What is your character's State??",
@@ -340,6 +462,19 @@
             "yes": "None",
             "no": "None",
             "default" : "None"
+        },
+        "checker": "None"
+    },
+    "q37":{
+        "question": "What was your character's Sem 2 section?",
+        "attribute": [
+            "SEM-2-SECTION"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q23"
         },
         "checker": "None"
     }
