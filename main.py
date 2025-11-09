@@ -140,7 +140,7 @@ def node_traversal(df, temp, traversal, answer, prev_attribute, skip, prev_club_
         traversal = traversal.yes or traversal.default
         
     elif answer == "no":
-        if prev_attribute == ["CLUB", "CLUB2", "CLUB3", "CLUB4"] or prev_attribute == ["CLUB-CHECKER"]:
+        if prev_attribute == ["CLUB", "CLUB2", "CLUB3", "CLUB4"]:
             club_columns = ["CLUB", "CLUB2", "CLUB3", "CLUB4"]
             mask = pd.Series([True] * len(df), index=df.index)
             for club_col in club_columns:
@@ -249,12 +249,12 @@ def start(data: inputData):
     if game_state["traversal"] is None:
         game_state["traversal"] = nodes[0]
     
-    # Handle trait check mode
     if game_state["trait_check_mode"]:
         df = game_state["df"]
         answer = data.SelectedAnswer.strip().lower()
         current_trait = game_state["traits_to_check"][game_state["current_trait_index"]]
         
+        print(f"\n\nDEBUGGING\n\nVALUES BEFORE: {df}")
         print(f"Trait check - Trait: {current_trait}, Answer: {answer}")
         
         if answer == "yes":
@@ -264,8 +264,7 @@ def start(data: inputData):
         
         game_state["df"] = df
         print(f"Remaining after trait filter: {len(df)}")
-        
-        # Check if we found someone or ran out of options
+        print(f"\n\nVALUES AFTER: {df}\n\n\n")
         if len(df) == 1:
             found_name = df.iloc[0]["Name"]
             print(f"FOUND: {found_name}")
@@ -280,19 +279,17 @@ def start(data: inputData):
             game_state["trait_check_mode"] = False
             return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
         
-        # Move to next trait
         game_state["current_trait_index"] += 1
         
         if game_state["current_trait_index"] < len(game_state["traits_to_check"]):
             next_trait = game_state["traits_to_check"][game_state["current_trait_index"]]
             print(f"Next trait: {next_trait}")
             return outputData(
-                question=f"Does your character have this trait: {next_trait}?",
+                question=f"{next_trait}?",
                 options=["Yes", "No"],
                 found=0
             )
         else:
-            # No more traits to check
             game_state["trait_check_mode"] = False
             if len(df) == 1:
                 found_name = df.iloc[0]["Name"]
@@ -300,7 +297,6 @@ def start(data: inputData):
             else:
                 return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
     
-    # Regular question processing
     traversal = game_state["traversal"]
     df = game_state["df"]
     prev_club_checker = game_state["prev_club_checker"]
