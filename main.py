@@ -7,6 +7,8 @@ from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
+import os
+from pathlib import Path
 
 app = FastAPI()
 
@@ -18,10 +20,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+# Get the base directory
+BASE_DIR = Path(__file__).resolve().parent
 
-questions_set = json.load(open('Data/questions.json'))
-mainDf = pd.read_excel('Data/data.xlsx')
+# Mount static files
+app.mount("/frontend", StaticFiles(directory=str(BASE_DIR / "frontend")), name="frontend")
+
+# Load data files with proper path handling
+try:
+    with open(BASE_DIR / 'Data' / 'questions.json', 'r') as f:
+        questions_set = json.load(f)
+    mainDf = pd.read_excel(BASE_DIR / 'Data' / 'data.xlsx')
+except FileNotFoundError as e:
+    print(f"ERROR: Could not find data files: {e}")
+    print(f"Current directory: {os.getcwd()}")
+    print(f"Files in directory: {os.listdir('.')}")
+    # Create dummy data for testing
+    questions_set = {}
+    mainDf = pd.DataFrame()
 
 game_state = {
     "df": mainDf.copy(),
@@ -81,37 +97,45 @@ def linkNodes(nodes):
         node.default = id_map.get(node.default) if node.default not in ["None", None] else None
 
 
-nodes = initializeNodes(questions_set)
-linkNodes(nodes)
+nodes = initializeNodes(questions_set) if questions_set else []
+if nodes:
+    linkNodes(nodes)
 
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    return FileResponse("frontend/index.html")
+    return FileResponse(str(BASE_DIR / "frontend" / "index.html"))
 
 @app.get("/copyrights.html", response_class=HTMLResponse)
-async def root():
-    return FileResponse("frontend/copyrights.html")
+async def copyrights():
+    return FileResponse(str(BASE_DIR / "frontend" / "copyrights.html"))
 
 @app.get("/questions.html", response_class=HTMLResponse)
 async def questions_page():
-    return FileResponse("frontend/questions.html")
+    return FileResponse(str(BASE_DIR / "frontend" / "questions.html"))
 
 
 @app.get("/answers.html", response_class=HTMLResponse)
 async def answers_page(name: str = ""):
-    return FileResponse("frontend/answers.html")
+    return FileResponse(str(BASE_DIR / "frontend" / "answers.html"))
 
 
 @app.post("/reset")
 def reset_game():
     global game_state
     game_state["df"] = mainDf.copy()
-    game_state["traversal"] = nodes[0]
+    game_state["traversal"] = nodes[0] if nodes else None
     game_state["prev_club_checker"] = None
     game_state["trait_check_mode"] = False
     game_state["current_trait_index"] = 0
     game_state["traits_to_check"] = []
+    
+    if not nodes:
+        return outputData(
+            question="No data available",
+            options=["Error: Data files not found"],
+            found=-1
+        )
     
     options = []
     for attr in game_state["traversal"].attribute:
@@ -247,7 +271,14 @@ def start(data: inputData):
     global game_state
     
     if game_state["traversal"] is None:
-        game_state["traversal"] = nodes[0]
+        game_state["traversal"] = nodes[0] if nodes else None
+    
+    if not nodes:
+        return outputData(
+            question="No data available",
+            options=["Error: Data files not found"],
+            found=-1
+        )
     
     if game_state["trait_check_mode"]:
         df = game_state["df"]
@@ -448,3 +479,13 @@ def start(data: inputData):
             options=[],
             found=-1
         )
+
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

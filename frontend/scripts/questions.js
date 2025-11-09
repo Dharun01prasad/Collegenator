@@ -4,6 +4,9 @@ const question_number = document.querySelector(".question-number");
 
 let questionCount = 0;
 
+// Use relative URLs instead of hardcoded localhost
+const API_BASE = window.location.origin;
+
 function generateNewOptions(option) {
   const newButton = document.createElement("button");
   newButton.classList.add("answer-btn");
@@ -19,7 +22,7 @@ function generateNewQuestion(question) {
 function addingEvents(button) {
   button.addEventListener("click", async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/process", {
+      const response = await fetch(`${API_BASE}/process`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ SelectedAnswer: button.innerText })
@@ -63,7 +66,7 @@ function addingEvents(button) {
 
 async function initializeGame() {
   try {
-    const response = await fetch("http://127.0.0.1:8000/reset", {
+    const response = await fetch(`${API_BASE}/reset`, {
       method: "POST",
       headers: { "Content-Type": "application/json" }
     });
