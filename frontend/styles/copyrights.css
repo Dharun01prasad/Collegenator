@@ -66,6 +66,7 @@ body::before {
     height: 400px;
     width: auto;
 }
+
 .header {
     margin-bottom: 40px;
 }
@@ -98,7 +99,42 @@ body::before {
     margin: 0 auto;
 }
 
+/* ========== MOBILE MEDIA QUERIES ONLY ========== */
+
+/* Tablets and below */
+@media (max-width: 1024px) {
+    .credits-card {
+        padding: 50px 35px;
+    }
+    
+    .header h1 {
+        font-size: 2.5em;
+    }
+    
+    .team-image {
+        width: 500px;
+        height: 350px;
+    }
+    
+    .naanga {
+        height: 350px;
+    }
+}
+
+/* Mobile and Small Tablets */
 @media (max-width: 768px) {
+    body {
+        padding: 15px;
+        overflow-x: hidden;
+    }
+    
+    .back-button {
+        padding: 10px 20px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        min-height: 44px; /* Better touch target */
+    }
+    
     .credits-card {
         padding: 40px 30px;
     }
@@ -108,9 +144,17 @@ body::before {
     }
 
     .team-image {
-        width: 250px;
-        height: 250px;
+        width: 100%;
+        max-width: 450px;
+        height: auto;
         font-size: 3em;
+    }
+    
+    .naanga {
+        height: auto;
+        max-height: 300px;
+        width: 100%;
+        object-fit: contain;
     }
 
     .description {
@@ -118,10 +162,79 @@ body::before {
     }
 }
 
+/* Mobile Portrait */
 @media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .back-button {
+        padding: 10px 18px;
+        font-size: 13px;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+    
+    .credits-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+    
+    .header {
+        margin-bottom: 25px;
+    }
+    
+    .header h1 {
+        font-size: 1.8em;
+    }
+    
     .team-image {
-        width: 200px;
-        height: 200px;
+        max-width: 100%;
+        height: auto;
         font-size: 2.5em;
+    }
+    
+    .naanga {
+        max-height: 250px;
+    }
+    
+    .description {
+        font-size: 1em;
+        line-height: 1.6;
+    }
+}
+
+/* Very Small Phones */
+@media (max-width: 360px) {
+    body {
+        padding: 8px;
+    }
+    
+    .back-button {
+        padding: 8px 16px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .credits-card {
+        padding: 25px 15px;
+        border-radius: 15px;
+    }
+    
+    .header h1 {
+        font-size: 1.6em;
+    }
+    
+    .team-image {
+        font-size: 2em;
+    }
+    
+    .naanga {
+        max-height: 200px;
+    }
+    
+    .description {
+        font-size: 0.95em;
+        line-height: 1.5;
     }
 }

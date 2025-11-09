@@ -35,10 +35,10 @@ body {
 }
 
 .akinator-genie-stand-alone {
-  position: absolute;
-  top: 70px;
-  left: -350px;
-  margin-left: 30%;
+    position: absolute;
+    top: 70px;
+    left: -350px;
+    margin-left: 30%;
 }
 
 .container {
@@ -131,6 +131,9 @@ body {
     padding: 10px;
 }
 
+/* ========== MOBILE MEDIA QUERIES ONLY ========== */
+
+/* Tablets and below */
 @media (max-width: 1240px) {
     .Header {
         top: 20px;
@@ -168,7 +171,12 @@ body {
     }
 }
 
+/* Mobile and Small Tablets */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    
     .Header {
         top: 15px;
     }
@@ -183,15 +191,26 @@ body {
     
     .akinator-genie-stand-alone {
         height: 300px;
+        top: 80px;
     }
     
     .akinator-card {
-        /* width: 95%; */
+        width: 95%;
         max-width: 350px;
+        margin-top: 290px;
+    }
+    
+    .header {
+        font-size: 1.1rem;
+    }
+    
+    .result-section {
+        padding: 25px 15px;
     }
     
     .character {
         font-size: 1.3rem;
+        word-wrap: break-word;
     }
     
     .series {
@@ -201,5 +220,98 @@ body {
     .answer-btn {
         padding: 8px 24px;
         font-size: 0.9rem;
+        min-height: 44px; /* Better touch target */
+    }
+    
+    .disclaimer {
+        margin-top: 50px;
+        font-size: 10px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .Header {
+        top: 10px;
+    }
+    
+    .header-img {
+        height: 50px;
+    }
+    
+    .akinator-image-div {
+        margin-top: 70px;
+    }
+    
+    .akinator-genie-stand-alone {
+        height: 250px;
+        top: 65px;
+    }
+    
+    .container {
+        padding: 10px 5px;
+    }
+    
+    .akinator-card {
+        width: 98%;
+        margin-top: 260px;
+        border-radius: 8px;
+    }
+    
+    .header {
+        font-size: 1rem;
+        padding: 10px 0;
+    }
+    
+    .result-section {
+        padding: 20px 15px;
+    }
+    
+    .character {
+        font-size: 1.2rem;
+        padding: 0 10px;
+    }
+    
+    .series {
+        font-size: 0.95rem;
+    }
+    
+    .answer-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .disclaimer {
+        margin-top: 40px;
+        font-size: 9px;
+    }
+}
+
+/* Very Small Phones */
+@media (max-width: 360px) {
+    .header-img {
+        height: 45px;
+    }
+    
+    .akinator-genie-stand-alone {
+        height: 200px;
+        top: 60px;
+    }
+    
+    .akinator-card {
+        margin-top: 230px;
+    }
+    
+    .character {
+        font-size: 1.1rem;
+    }
+    
+    .answer-btn {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+    }
+    
+    .disclaimer {
+        font-size: 8px;
     }
 }
