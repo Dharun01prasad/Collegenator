@@ -62,6 +62,10 @@ body::before {
     backdrop-filter: blur(10px);
 }
 
+.naanga{
+    height: 400px;
+    width: auto;
+}
 .header {
     margin-bottom: 40px;
 }

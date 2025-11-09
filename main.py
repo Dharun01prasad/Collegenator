@@ -358,7 +358,7 @@ def start(data: inputData):
                     
                     first_trait = str(traits[0]).strip()
                     return outputData(
-                        question=f"Does your character have this trait: {first_trait}?",
+                        question=f"{first_trait}?",
                         options=["Yes", "No"],
                         found=0
                     )
@@ -424,7 +424,7 @@ def start(data: inputData):
                         
                         first_trait = str(traits[0]).strip()
                         return outputData(
-                            question=f"Does your character have this trait: {first_trait}?",
+                            question=f"{first_trait}?",
                             options=["Yes", "No"],
                             found=0
                         )
