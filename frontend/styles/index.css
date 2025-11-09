@@ -11,16 +11,15 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
 }
 
-.front-page{
+.front-page {
     display: flex;
     flex-direction: column;
     margin-top: 50px;
 }
 
-.header{
+.header {
     height: 140px;
     position: absolute;
     top: 40px;
@@ -29,7 +28,7 @@ body {
     z-index: 100;
 }
 
-.SignInPageHeader{
+.SignInPageHeader {
     margin: 0 auto;
 }
 
@@ -42,6 +41,10 @@ body {
     padding: 20px;
 }
 
+.akinator-image-div {
+    text-align: center;
+}
+
 .akinator-genie-stand-alone {
     position: absolute;
     top: 180px;
@@ -51,11 +54,10 @@ body {
     margin: 0; 
 }
 
-.SignInPage {
-    max-width: 100%;          
-    height: auto;            
-    flex-shrink: 1;
-    transition: width 0.3s ease;
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .form-card {
@@ -97,107 +99,90 @@ h1 span {
     box-shadow: 0 6px 15px rgba(255, 85, 0, 0.4);
 }
 
-/* ========== MOBILE MEDIA QUERIES ONLY ========== */
+/* ========== MOBILE MEDIA QUERIES ========== */
 
-/* Tablets and below */
-@media (max-width: 1024px) {
-    .header {
-        height: 100px;
-        top: 30px;
-    }
-    
-    .akinator-genie-stand-alone {
-        height: 350px;
-        top: 150px;
-    }
-    
-    .form-card {
-        margin-top: 480px;
-        width: 360px;
-    }
-}
-
-/* Mobile - Major Changes Here */
-@media (max-width: 770px) {
+@media (max-width: 768px) {
     body {
         overflow-x: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
     
     .front-page {
+        margin-top: 0;
+        width: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin-top: 0;
-        padding: 20px;
+        justify-content: flex-start;
+        padding: 20px 0;
     }
     
+    /* Header at top - centered */
     .SignInPageHeader {
         width: 100%;
         text-align: center;
         margin-bottom: 30px;
-        position: static;
     }
     
     .header {
-        position: static;
-        height: 70px;
-        transform: none;
-        width: auto;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        height: 80px !important;
         max-width: 90%;
-        left: auto;
-        top: auto;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
     }
     
+    /* Genie image - centered and large */
     .SignInPage {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        gap: 30px;
+        gap: 40px;
+        padding: 0;
+        flex: 1;
     }
     
     .akinator-image-div {
-        position: static;
+        width: 100%;
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        margin: 0;
     }
     
     .akinator-genie-stand-alone {
-        position: static;
-        transform: none;
-        height: 300px;
-        width: auto;
-        max-width: 80%;
-        left: auto;
-        top: auto;
-        margin: 0;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        height: 320px !important;
+        width: auto !important;
+        max-width: 80% !important;
+        margin: 0 auto !important;
         object-fit: contain;
+        display: block;
     }
     
+    /* Form card - centered and wide */
     .container {
         width: 100%;
+        padding: 0 20px;
         display: flex;
         justify-content: center;
-        padding: 0;
     }
     
     .form-card {
-        margin-top: 0;
-        background: #fff;
-        border-radius: 20px;
+        margin-top: 0 !important;
+        width: 100% !important;
+        max-width: 400px !important;
         padding: 35px 30px;
-        width: 90%;
-        max-width: 380px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        box-sizing: border-box;
     }
     
     h1 {
@@ -206,65 +191,59 @@ h1 span {
     }
     
     .submit {
-        font-size: 16px;
-        padding: 14px 0;
-        min-height: 50px;
+        font-size: 17px;
+        padding: 16px 0;
+        min-height: 52px;
     }
 }
 
-/* Mobile Portrait */
 @media (max-width: 480px) {
     .front-page {
-        padding: 15px;
+        padding: 15px 0;
     }
     
     .header {
-        height: 55px;
-        max-width: 85%;
+        height: 65px !important;
     }
     
     .akinator-genie-stand-alone {
-        height: 250px;
-        max-width: 75%;
+        height: 280px !important;
+        max-width: 75% !important;
+    }
+    
+    .container {
+        padding: 0 15px;
     }
     
     .form-card {
+        max-width: 100% !important;
         padding: 30px 25px;
-        width: 95%;
-        max-width: 350px;
     }
     
     h1 {
         font-size: 24px;
-        margin-bottom: 20px;
     }
     
     .submit {
-        font-size: 15px;
-        padding: 13px 0;
+        font-size: 16px;
+        padding: 15px 0;
     }
 }
 
-/* Very Small Phones */
 @media (max-width: 360px) {
     .header {
-        height: 50px;
+        height: 55px !important;
     }
     
     .akinator-genie-stand-alone {
-        height: 200px;
+        height: 240px !important;
     }
     
     .form-card {
         padding: 25px 20px;
-        width: 95%;
     }
     
     h1 {
         font-size: 22px;
-    }
-    
-    .submit {
-        font-size: 14px;
     }
 }
