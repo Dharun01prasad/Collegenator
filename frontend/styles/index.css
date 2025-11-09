@@ -1,5 +1,5 @@
 body {
-    background-image: url('/frontend/images/final.png');
+background-image: url('/frontend/images/final.png');
     background-repeat: no-repeat;
     background-color: black;
     background-attachment: fixed;
@@ -22,7 +22,12 @@ body {
 }
 
 .header{
-    height: 100px;
+    height: 140px;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
 }
 
 .SignInPageHeader{
@@ -30,23 +35,23 @@ body {
 }
 
 .SignInPage {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;          
   gap: 20px;                
   padding: 20px;
 }
-
 .akinator-genie-stand-alone {
-    height: 850px;
     position: absolute;
-    top: 90px;
-    left: -350px; 
-    margin-left: 30%;
+    top: 180px;
+    left: 55%;
+    transform: translateX(-50%);
+    height: 400px;
+    margin: 0; 
 }
 
-.SignInPage .akinator-genie-stand-alone {
+.SignInPage {
   max-width: 100%;          
   height: auto;            
   flex-shrink: 1;
@@ -54,21 +59,45 @@ body {
 }
 
 .form-card {
+  margin-top: 550px;
   background: #fff;
   border-radius: 20px;
   padding: 40px;
   width: 380px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
-
-@media (max-width: 768px) {
+@media (max-width: 770px){
+  .header{
+    height: 80px;
+    position: absolute;
+    top: 40px;
+    left: 55%;
+    transform: translateX(-50%);
+    z-index: 100;
+  }
   .SignInPage .front-page  {
     flex-direction: column;
     gap: 0px;
   }
 
-  .container .akinator-genie-stand-alone {
+  .container {
     width: 180px;   
+  }
+  .form-card {
+    margin-top: 120px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 380px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  .akinator-genie-stand-alone{
+    position: absolute;
+    top: 120px;
+    left: 60%;
+    transform: translateX(-50%);
+    height: 280px;
+    margin: 0;  
   }
 
   .form-card {
@@ -87,60 +116,6 @@ h1 {
 h1 span {
   color: #ff6600;
   font-weight: 700;
-}
-
-label {
-  display: block;
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 6px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-  width: 100%;
-  padding: 12px 14px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f2f2f2;
-  font-size: 14px;
-  outline: none;
-  margin-bottom: 20px;
-  transition: box-shadow 0.2s ease;
-}
-
-input:focus {
-  box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.4);
-}
-
-.phone-input {
-  display: flex;
-  align-items: center;
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  padding: 0 10px;
-  margin-bottom: 20px;
-}
-
-.flag {
-  font-size: 20px;
-  margin-right: 8px;
-}
-
-.code {
-  margin-right: 8px;
-  color: #444;
-  font-weight: 500;
-}
-
-.phone-input input {
-  border: none;
-  background: transparent;
-  flex: 1;
-  padding: 12px 0;
-  font-size: 14px;
-  outline: none;
 }
 
 .submit {

@@ -78,17 +78,44 @@
         "checker": ["cr"]
     },
     "q8": {
-        "question": "Is your character in any of these clubs?[Epoch, Iota, Matrix, Gradient, Enigma, Nexsync, Ecell, Connexion, F/stops, Keynote, Miraki]",
+        "question": "Is your character in any of these clubs?[GDG, Epoch, Iota, Matrix, Gradient, Enigma, Nexsync, Ecell, Connexion, F/stops, Keynote, Miraki, Beatripperz, Reverb or Valiara]",
         "attribute": [
             "CLUB-CHECKER"
         ],
         "options": "single",
         "next_question": {
-            "yes": "q9",
+            "yes": "q38",
             "no": "q20", 
             "default" : "q20"
         },
         "checker": ["yes"]
+    },
+    "q38":{
+        "question": "Is your character in GDG?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "q39",
+            "no": "q9",
+            "default" : "q9"
+        },
+        "checker": ["gdg"]
+    },
+    "q39": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q9"
+        },
+        "checker": "None"
     },
     "q9":{
         "question": "Is your character in Nexsync?",
@@ -371,12 +398,71 @@
         "options": "single",
         "next_question": {
             "yes": "q36",
+            "no": "q40",
+            "default" : "q40"
+        },
+        "checker": ["miraki"]
+    }, 
+    "q36": {
+        "question": "What Domain?",
+        "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
+        "options": "single",
+        "next_question": {
+            "yes": "None",
+            "no": "None",
+            "default" : "q40"
+        },
+        "checker": "None"
+    },
+    "q40":{
+        "question": "Is your character in Reverb?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "q41",
+            "no": "q41",
+            "default" : "q41"
+        },
+        "checker": ["reverb"]
+    },
+    "q41":{
+        "question": "Is your character in Beatripperz?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "q42",
+            "no": "q42",
+            "default" : "q42"
+        },
+        "checker": ["beatripperz"]
+    },
+    "q42":{
+        "question": "Is your character in Valiara?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
+            "yes": "q43",
             "no": "q20",
             "default" : "q20"
         },
-        "checker": ["miraki"]
-    },
-    "q36": {
+        "checker": ["valiara"]
+    }, 
+    "q43": {
         "question": "What Domain?",
         "attribute": ["DOMAIN", "DOMAIN2", "DOMAIN3"],
         "options": "single",
@@ -424,7 +510,7 @@
             "no": "None",
             "default" : "q37"
         },
-        "checker": ["YES"]
+        "checker": ["yes"]
     },
     "q23":{
         "question": "Does your character work in HCI lab??",
@@ -437,7 +523,7 @@
             "no": "None",
             "default" : "q24"
         },
-        "checker": ["Yes"]
+        "checker": ["yes"]
     },
     "q24":{
         "question": "What is your character's State??",

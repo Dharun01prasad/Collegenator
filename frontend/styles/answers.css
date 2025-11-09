@@ -16,7 +16,7 @@ body {
 }
 
 .Header {
-    position: fixed;
+    position: absolute;
     top: 40px;
     left: 50%;
     transform: translateX(-50%);
@@ -35,9 +35,10 @@ body {
 }
 
 .akinator-genie-stand-alone {
-    height: 400px;
-    display: block;
-    margin: 0 auto;
+  position: absolute;
+  top: 70px;
+  left: -350px;
+  margin-left: 30%;
 }
 
 .container {
@@ -56,6 +57,7 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     text-align: center;
     overflow: hidden;
+    margin-top: 60px;
 }
 
 .header {
@@ -122,8 +124,14 @@ body {
     margin: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 1333px) {
+.disclaimer{
+    margin-top: 70px;
+    font-size: 11px;
+    color: #444;
+    padding: 10px;
+}
+
+@media (max-width: 1240px) {
     .Header {
         top: 20px;
     }
@@ -138,7 +146,11 @@ body {
     }
     
     .akinator-genie-stand-alone {
-        height: 280px;
+        top: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 350px;
+        margin: 0;
     }
     
     .container {
@@ -147,7 +159,7 @@ body {
     }
     
     .akinator-card {
-        width: 90%;
+        margin-top: 320px;
         max-width: 400px;
     }
     
@@ -170,11 +182,11 @@ body {
     }
     
     .akinator-genie-stand-alone {
-        height: 200px;
+        height: 300px;
     }
     
     .akinator-card {
-        width: 95%;
+        /* width: 95%; */
         max-width: 350px;
     }
     
