@@ -2,6 +2,10 @@ services:
   - type: web
     name: collegenator
     env: python
-    runtime: python-3.11.9
-    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    region: oregon
+    plan: free
+    buildCommand: "pip install --upgrade pip setuptools wheel && pip install --no-cache-dir -r requirements.txt"
     startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
