@@ -1,44 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-image: url('/frontend/images/final.png');
     background-repeat: no-repeat;
     background-color: black;
     background-attachment: fixed;
     background-size: cover;
-    margin: 0;
-    height: 100vh;
     font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-.front-page {
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+/* ========== DESKTOP LAYOUT ========== */
+.SignInPageHeader {
+    text-align: center;
+    padding: 30px 0 20px 0;
 }
 
 .header {
-    height: 140px;
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-}
-
-.SignInPageHeader {
-    margin: 0 auto;
+    height: 120px;
+    max-width: 90%;
 }
 
 .SignInPage {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;          
-    gap: 20px;                
+    justify-content: center;
     padding: 20px;
+    gap: 30px;
+    min-height: calc(100vh - 180px);
 }
 
 .akinator-image-div {
@@ -46,12 +41,9 @@ body {
 }
 
 .akinator-genie-stand-alone {
-    position: absolute;
-    top: 180px;
-    left: 55%;
-    transform: translateX(-50%);
-    height: 400px;
-    margin: 0; 
+    height: 420px;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .container {
@@ -61,19 +53,19 @@ body {
 }
 
 .form-card {
-    margin-top: 550px;
     background: #fff;
     border-radius: 20px;
     padding: 40px;
-    width: 380px;
+    width: 100%;
+    max-width: 420px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
-    margin-top: 0;
-    font-size: 28px;
-    margin-bottom: 25px;
+    margin: 0 0 25px 0;
+    font-size: 32px;
     color: #555;
+    text-align: center;
 }
 
 h1 span {
@@ -85,13 +77,14 @@ h1 span {
     width: 100%;
     background: linear-gradient(to right, #ff7b00, #ff5500);
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     border: none;
-    border-radius: 10px;
-    padding: 14px 0;
+    border-radius: 12px;
+    padding: 18px 0;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 58px;
 }
 
 .submit:hover {
@@ -99,151 +92,249 @@ h1 span {
     box-shadow: 0 6px 15px rgba(255, 85, 0, 0.4);
 }
 
-/* ========== MOBILE MEDIA QUERIES ========== */
+.submit:active {
+    transform: translateY(0);
+}
 
-@media (max-width: 768px) {
-    body {
-        overflow-x: hidden;
-    }
-    
-    .front-page {
-        margin-top: 0;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 20px 0;
-    }
-    
-    /* Header at top - centered */
-    .SignInPageHeader {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    
+/* ========== TABLET ========== */
+@media (max-width: 1024px) {
     .header {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-        height: 80px !important;
-        max-width: 90%;
-        object-fit: contain;
-        margin: 0 auto;
-        display: block;
-    }
-    
-    /* Genie image - centered and large */
-    .SignInPage {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 40px;
-        padding: 0;
-        flex: 1;
-    }
-    
-    .akinator-image-div {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 100px;
     }
     
     .akinator-genie-stand-alone {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-        height: 320px !important;
-        width: auto !important;
-        max-width: 80% !important;
-        margin: 0 auto !important;
-        object-fit: contain;
-        display: block;
+        height: 380px;
     }
     
-    /* Form card - centered and wide */
-    .container {
-        width: 100%;
-        padding: 0 20px;
+    .SignInPage {
+        gap: 25px;
+    }
+}
+
+/* ========== MOBILE - COMPACT STACKED LAYOUT ========== */
+@media (max-width: 768px) {
+    body {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .SignInPageHeader {
+        padding: 15px 0 10px 0;
+        background: rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+    }
+    
+    .header {
+        height: 75px;
+        max-width: 85%;
+    }
+    
+    /* Content area - remove centering, stack from top */
+    .SignInPage {
+        display: block;
+        padding: 0;
+        min-height: auto;
+        flex: 1;
+    }
+    
+    /* Genie section - compact */
+    .akinator-image-div {
+        padding: 15px 0;
+        background: transparent;
+    }
+    
+    .akinator-genie-stand-alone {
+        height: 380px;
+        max-width: 90%;
+        display: block;
+        margin: 0 auto;
+    }
+    
+    /* Form section - sits right below genie */
+    .container {
+        padding: 0 20px 25px 20px;
     }
     
     .form-card {
-        margin-top: 0 !important;
-        width: 100% !important;
-        max-width: 400px !important;
-        padding: 35px 30px;
-        box-sizing: border-box;
+        max-width: 100%;
+        padding: 32px 30px;
+        border-radius: 16px;
     }
     
     h1 {
-        font-size: 26px;
-        text-align: center;
+        font-size: 28px;
+        margin-bottom: 22px;
     }
     
     .submit {
-        font-size: 17px;
-        padding: 16px 0;
-        min-height: 52px;
+        font-size: 20px;
+        padding: 19px 0;
+        min-height: 64px;
+        border-radius: 10px;
     }
 }
 
 @media (max-width: 480px) {
-    .front-page {
-        padding: 15px 0;
+    .SignInPageHeader {
+        padding: 12px 0 8px 0;
     }
     
     .header {
-        height: 65px !important;
+        height: 65px;
+    }
+    
+    .akinator-image-div {
+        padding: 12px 0;
     }
     
     .akinator-genie-stand-alone {
-        height: 280px !important;
-        max-width: 75% !important;
+        height: 340px;
+        max-width: 85%;
     }
     
     .container {
-        padding: 0 15px;
+        padding: 0 18px 22px 18px;
     }
     
     .form-card {
-        max-width: 100% !important;
-        padding: 30px 25px;
+        padding: 28px 26px;
     }
     
     h1 {
-        font-size: 24px;
+        font-size: 26px;
+        margin-bottom: 20px;
     }
     
     .submit {
-        font-size: 16px;
-        padding: 15px 0;
+        font-size: 19px;
+        padding: 18px 0;
+        min-height: 62px;
     }
 }
 
 @media (max-width: 360px) {
+    .SignInPageHeader {
+        padding: 10px 0 6px 0;
+    }
+    
     .header {
-        height: 55px !important;
+        height: 55px;
+    }
+    
+    .akinator-image-div {
+        padding: 10px 0;
     }
     
     .akinator-genie-stand-alone {
-        height: 240px !important;
+        height: 300px;
+        max-width: 80%;
+    }
+    
+    .container {
+        padding: 0 15px 20px 15px;
     }
     
     .form-card {
-        padding: 25px 20px;
+        padding: 25px 22px;
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+    
+    .submit {
+        font-size: 18px;
+        padding: 17px 0;
+        min-height: 60px;
+    }
+}
+
+/* ========== LANDSCAPE MODE ON MOBILE ========== */
+@media (max-height: 600px) and (max-width: 768px) {
+    .SignInPageHeader {
+        padding: 10px 0 6px 0;
+    }
+    
+    .header {
+        height: 50px;
+    }
+    
+    .SignInPage {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 15px 15px 15px;
+        gap: 15px;
+    }
+    
+    .akinator-image-div {
+        flex: 0 0 45%;
+        padding: 0;
+    }
+    
+    .akinator-genie-stand-alone {
+        height: auto;
+        max-height: 280px;
+        width: 100%;
+    }
+    
+    .container {
+        flex: 0 0 50%;
+        padding: 0;
+    }
+    
+    .form-card {
+        padding: 20px 25px;
     }
     
     h1 {
         font-size: 22px;
+        margin-bottom: 15px;
+    }
+    
+    .submit {
+        min-height: 52px;
+        padding: 14px 0;
+        font-size: 18px;
+    }
+}
+
+/* ========== VERY TALL MOBILE SCREENS ========== */
+@media (min-height: 800px) and (max-width: 768px) {
+    .SignInPageHeader {
+        padding: 18px 0 12px 0;
+    }
+    
+    .header {
+        height: 80px;
+    }
+    
+    .akinator-image-div {
+        padding: 20px 0;
+    }
+    
+    .akinator-genie-stand-alone {
+        height: 420px;
+    }
+    
+    .container {
+        padding: 0 20px 30px 20px;
+    }
+    
+    .form-card {
+        padding: 35px 32px;
+    }
+    
+    h1 {
+        font-size: 30px;
+        margin-bottom: 24px;
+    }
+    
+    .submit {
+        font-size: 21px;
+        min-height: 66px;
+        padding: 20px 0;
     }
 }
