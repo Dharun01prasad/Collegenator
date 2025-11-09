@@ -3,8 +3,8 @@ const answer_box = document.querySelector(".answer-box");
 const question_number = document.querySelector(".question-number");
 
 let questionCount = 0;
+let sessionId = null;
 
-// Use relative URLs instead of hardcoded localhost
 const API_BASE = window.location.origin;
 
 function generateNewOptions(option) {
@@ -22,10 +22,14 @@ function generateNewQuestion(question) {
 function addingEvents(button) {
   button.addEventListener("click", async () => {
     try {
+      // Send session ID with the request
       const response = await fetch(`${API_BASE}/process`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ SelectedAnswer: button.innerText })
+        body: JSON.stringify({ 
+          SelectedAnswer: button.innerText,
+          session_id: sessionId  // Include session ID
+        })
       });
 
       if (!response.ok) {
@@ -36,6 +40,14 @@ function addingEvents(button) {
       console.log("Question: ", data.question);
       console.log("Options: ", data.options);
       console.log("Found: ", data.found);
+      console.log("Session ID: ", data.session_id);
+
+      // Check if session expired
+      if (data.found === -1 && data.question.includes("Session expired")) {
+        alert("Your session has expired. Starting a new game...");
+        await initializeGame();
+        return;
+      }
 
       questionCount++;
       question_number.innerText = questionCount;
@@ -78,6 +90,11 @@ async function initializeGame() {
     const data = await response.json();
     console.log("Initial Question: ", data.question);
     console.log("Initial Options: ", data.options);
+    console.log("Session ID: ", data.session_id);
+
+    sessionId = data.session_id;
+    
+    localStorage.setItem('gameSessionId', sessionId);
 
     questionCount = 1;
     question_number.innerText = questionCount;
@@ -92,6 +109,11 @@ async function initializeGame() {
     console.error("Error initializing game:", error);
     question_box.innerHTML = "Error loading game. Please refresh the page.";
   }
+}
+
+const storedSessionId = localStorage.getItem('gameSessionId');
+if (storedSessionId) {
+  sessionId = storedSessionId;
 }
 
 initializeGame();

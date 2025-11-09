@@ -3,12 +3,13 @@ import pandas as pd
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 import os
 from pathlib import Path
+import uuid
 
 app = FastAPI()
 
@@ -20,13 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Get the base directory
 BASE_DIR = Path(__file__).resolve().parent
 
-# Mount static files
 app.mount("/frontend", StaticFiles(directory=str(BASE_DIR / "frontend")), name="frontend")
 
-# Load data files with proper path handling
 try:
     with open(BASE_DIR / 'Data' / 'questions.json', 'r') as f:
         questions_set = json.load(f)
@@ -35,18 +33,10 @@ except FileNotFoundError as e:
     print(f"ERROR: Could not find data files: {e}")
     print(f"Current directory: {os.getcwd()}")
     print(f"Files in directory: {os.listdir('.')}")
-    # Create dummy data for testing
     questions_set = {}
     mainDf = pd.DataFrame()
 
-game_state = {
-    "df": mainDf.copy(),
-    "traversal": None,
-    "prev_club_checker": None,
-    "trait_check_mode": False,
-    "current_trait_index": 0,
-    "traits_to_check": []
-}
+user_sessions = {}
 
 
 class Node:
@@ -63,12 +53,14 @@ class Node:
 
 class inputData(BaseModel):
     SelectedAnswer: str
+    session_id: Optional[str] = None
 
 
 class outputData(BaseModel):
     question: str
     options: List[str]
     found: int
+    session_id: Optional[str] = None
 
 
 def initializeNodes(questions_set):
@@ -122,20 +114,26 @@ async def answers_page(name: str = ""):
 
 @app.post("/reset")
 def reset_game():
-    global game_state
-    game_state["df"] = mainDf.copy()
-    game_state["traversal"] = nodes[0] if nodes else None
-    game_state["prev_club_checker"] = None
-    game_state["trait_check_mode"] = False
-    game_state["current_trait_index"] = 0
-    game_state["traits_to_check"] = []
+    session_id = str(uuid.uuid4())
+    
+    user_sessions[session_id] = {
+        "df": mainDf.copy(),
+        "traversal": nodes[0] if nodes else None,
+        "prev_club_checker": None,
+        "trait_check_mode": False,
+        "current_trait_index": 0,
+        "traits_to_check": []
+    }
     
     if not nodes:
         return outputData(
             question="No data available",
             options=["Error: Data files not found"],
-            found=-1
+            found=-1,
+            session_id=session_id
         )
+    
+    game_state = user_sessions[session_id]
     
     options = []
     for attr in game_state["traversal"].attribute:
@@ -149,7 +147,8 @@ def reset_game():
     return outputData(
         question=game_state["traversal"].question,
         options=options,
-        found=0
+        found=0,
+        session_id=session_id
     )
 
 def node_traversal(df, temp, traversal, answer, prev_attribute, skip, prev_club_checker):
@@ -268,16 +267,26 @@ def get_options(df, traversal, prev_club_checker):
 
 @app.post("/process", response_model=outputData)
 def start(data: inputData):
-    global game_state
+    # Get or validate session
+    if not data.session_id or data.session_id not in user_sessions:
+        return outputData(
+            question="Session expired. Please restart the game.",
+            options=["Restart"],
+            found=-1,
+            session_id=None
+        )
     
-    if game_state["traversal"] is None:
+    game_state = user_sessions[data.session_id]
+    
+    if game_state["traversal"] is None and not game_state["trait_check_mode"]:
         game_state["traversal"] = nodes[0] if nodes else None
     
     if not nodes:
         return outputData(
             question="No data available",
             options=["Error: Data files not found"],
-            found=-1
+            found=-1,
+            session_id=data.session_id
         )
     
     if game_state["trait_check_mode"]:
@@ -285,7 +294,7 @@ def start(data: inputData):
         answer = data.SelectedAnswer.strip().lower()
         current_trait = game_state["traits_to_check"][game_state["current_trait_index"]]
         
-        print(f"\n\nDEBUGGING\n\nVALUES BEFORE: {df}")
+        print(f"\n\nDEBUGGING Session {data.session_id}\n\nVALUES BEFORE: {df}")
         print(f"Trait check - Trait: {current_trait}, Answer: {answer}")
         
         if answer == "yes":
@@ -303,12 +312,18 @@ def start(data: inputData):
             return outputData(
                 question="Found!",
                 options=[found_name],
-                found=1
+                found=1,
+                session_id=data.session_id
             )
         elif len(df) == 0:
             print("NOT FOUND")
             game_state["trait_check_mode"] = False
-            return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
+            return outputData(
+                question="Can't find!!", 
+                options=["Can't find!!"], 
+                found=-1,
+                session_id=data.session_id
+            )
         
         game_state["current_trait_index"] += 1
         
@@ -318,15 +333,26 @@ def start(data: inputData):
             return outputData(
                 question=f"{next_trait}?",
                 options=["Yes", "No"],
-                found=0
+                found=0,
+                session_id=data.session_id
             )
         else:
             game_state["trait_check_mode"] = False
             if len(df) == 1:
                 found_name = df.iloc[0]["Name"]
-                return outputData(question="Found!", options=[found_name], found=1)
+                return outputData(
+                    question="Found!", 
+                    options=[found_name], 
+                    found=1,
+                    session_id=data.session_id
+                )
             else:
-                return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
+                return outputData(
+                    question="Can't find!!", 
+                    options=["Can't find!!"], 
+                    found=-1,
+                    session_id=data.session_id
+                )
     
     traversal = game_state["traversal"]
     df = game_state["df"]
@@ -335,6 +361,7 @@ def start(data: inputData):
     try:
         answer = data.SelectedAnswer.strip().lower()
         print(f"\n{'='*50}")
+        print(f"Session: {data.session_id}")
         print(f"Question: {traversal.question}")
         print(f"Answer: {answer}")
         print(f"Traversal attribute: {traversal.attribute}")
@@ -369,14 +396,25 @@ def start(data: inputData):
             return outputData(
                 question="Found!",
                 options=[found_name],
-                found=1
+                found=1,
+                session_id=data.session_id
             )
         elif len(df) == 0:
             print("NOT FOUND")
-            return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
+            return outputData(
+                question="Can't find!!", 
+                options=["Can't find!!"], 
+                found=-1,
+                session_id=data.session_id
+            )
         
         if traversal is None and len(df) == 0:
-            return outputData(question="End of questions", options=["Done"], found=0)
+            return outputData(
+                question="End of questions", 
+                options=["Done"], 
+                found=0,
+                session_id=data.session_id
+            )
         
         if traversal is None and len(df) != 0:
             if len(df) > 1:
@@ -391,17 +429,24 @@ def start(data: inputData):
                     return outputData(
                         question=f"{first_trait}?",
                         options=["Yes", "No"],
-                        found=0
+                        found=0,
+                        session_id=data.session_id
                     )
                 else:
-                    return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
+                    return outputData(
+                        question="Can't find!!", 
+                        options=["Can't find!!"], 
+                        found=-1,
+                        session_id=data.session_id
+                    )
             elif len(df) == 1:
                 found_name = df.iloc[0]["Name"]
                 print(f"FOUND: {found_name}")
                 return outputData(
                     question="Found!",
                     options=[found_name],
-                    found=1
+                    found=1,
+                    session_id=data.session_id
                 )
         
         options = get_options(df, traversal, prev_club_checker)
@@ -438,11 +483,17 @@ def start(data: inputData):
                 return outputData(
                     question="Found!",
                     options=[found_name],
-                    found=1
+                    found=1,
+                    session_id=data.session_id
                 )
             elif len(df) == 0:
                 print("NOT FOUND after auto-skip")
-                return outputData(question="Can't find!!", options=["Can't find!!"], found=-1)
+                return outputData(
+                    question="Can't find!!", 
+                    options=["Can't find!!"], 
+                    found=-1,
+                    session_id=data.session_id
+                )
             
             if traversal is None:
                 if len(df) > 1:
@@ -457,9 +508,15 @@ def start(data: inputData):
                         return outputData(
                             question=f"{first_trait}?",
                             options=["Yes", "No"],
-                            found=0
+                            found=0,
+                            session_id=data.session_id
                         )
-                return outputData(question="End of questions", options=["Done"], found=0)
+                return outputData(
+                    question="End of questions", 
+                    options=["Done"], 
+                    found=0,
+                    session_id=data.session_id
+                )
             
             options = get_options(df, traversal, prev_club_checker)
             print(f"Options after auto-skip: {options}")
@@ -467,7 +524,8 @@ def start(data: inputData):
         return outputData(
             question=traversal.question,
             options=options,
-            found=0
+            found=0,
+            session_id=data.session_id
         )
         
     except Exception as e:
@@ -477,7 +535,8 @@ def start(data: inputData):
         return outputData(
             question="Backend error",
             options=[],
-            found=-1
+            found=-1,
+            session_id=data.session_id
         )
 
 
