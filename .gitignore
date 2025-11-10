@@ -75,3 +75,6 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Sensitive data files
+Data/data.xlsx
