@@ -21,26 +21,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Get the base directory
 BASE_DIR = Path(__file__).resolve().parent
 
-# Mount static files
 app.mount("/frontend", StaticFiles(directory=str(BASE_DIR / "frontend")), name="frontend")
 
-# Load data files with proper path handling
 try:
     with open(BASE_DIR / 'Data' / 'questions.json', 'r') as f:
         questions_set = json.load(f)
-    mainDf = pd.read_excel(BASE_DIR / 'Data' / 'data.xlsx')
+    sheet_url = "https://docs.google.com/spreadsheets/d/1URVOToAnoENffjCJlRAw3hMaE8k33v4W/export?format=xlsx"
+    mainDf = pd.read_excel(sheet_url)
 except FileNotFoundError as e:
     print(f"ERROR: Could not find data files: {e}")
     print(f"Current directory: {os.getcwd()}")
     print(f"Files in directory: {os.listdir('.')}")
-    # Create dummy data for testing
     questions_set = {}
     mainDf = pd.DataFrame()
 
-# CHANGED: Use dictionary to store multiple user sessions instead of single global state
 user_sessions = {}
 
 
@@ -58,14 +54,14 @@ class Node:
 
 class inputData(BaseModel):
     SelectedAnswer: str
-    session_id: Optional[str] = None  # CHANGED: Added session_id
+    session_id: Optional[str] = None   
 
 
 class outputData(BaseModel):
     question: str
     options: List[str]
     found: int
-    session_id: Optional[str] = None  # CHANGED: Added session_id
+    session_id: Optional[str] = None
 
 
 def initializeNodes(questions_set):
@@ -119,7 +115,6 @@ async def answers_page(name: str = ""):
 
 @app.post("/reset")
 def reset_game():
-    # CHANGED: Create new session for each user
     session_id = str(uuid.uuid4())
     
     user_sessions[session_id] = {
@@ -154,7 +149,7 @@ def reset_game():
         question=game_state["traversal"].question,
         options=options,
         found=0,
-        session_id=session_id  # CHANGED: Return session_id
+        session_id=session_id 
     )
 
 def node_traversal(df, temp, traversal, answer, prev_attribute, skip, prev_club_checker):
@@ -273,7 +268,6 @@ def get_options(df, traversal, prev_club_checker):
 
 @app.post("/process", response_model=outputData)
 def start(data: inputData):
-    # CHANGED: Get session-specific game state
     if not data.session_id or data.session_id not in user_sessions:
         return outputData(
             question="Session expired. Please restart the game.",
@@ -455,6 +449,7 @@ def start(data: inputData):
                     session_id=data.session_id
                 )
         
+        print(f"Values {df}")
         options = get_options(df, traversal, prev_club_checker)
         print(f"Options: {options}")
         
