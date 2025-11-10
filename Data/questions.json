@@ -78,7 +78,7 @@
         "checker": ["cr"]
     },
     "q8": {
-        "question": "Is your character in any of these clubs?[GDG, Epoch, Iota, Matrix, Gradient, Enigma, Nexsync, Ecell, Connexion, F/stops, Keynote, Miraki, Beatripperz, Reverb or Valiara]",
+        "question": "Is your character in any of these clubs?[GDG, Epoch, Iota, Matrix, Gradient, Enigma, Nexsync, Ecell, Connexion, F/stops, Keynote, Miraki, Beatripperz, Reverb, Mise en scene or Valiara]",
         "attribute": [
             "CLUB-CHECKER"
         ],
@@ -424,11 +424,27 @@
         ],
         "options": "single",
         "next_question": {
+            "yes": "q44",
+            "no": "q44",
+            "default" : "q44"
+        },
+        "checker": ["reverb"]
+    },
+    "q44":{
+        "question": "Is your character in Mise en scene?",
+        "attribute": [
+            "CLUB",
+            "CLUB2",
+            "CLUB3",
+            "CLUB4"
+        ],
+        "options": "single",
+        "next_question": {
             "yes": "q41",
             "no": "q41",
             "default" : "q41"
         },
-        "checker": ["reverb"]
+        "checker": ["mise en scene"]
     },
     "q41":{
         "question": "Is your character in Beatripperz?",
