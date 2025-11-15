@@ -116,6 +116,10 @@ body {
     display: block;
 }
 
+.result-image{
+    height: 250px;
+    object-fit: cover;
+}
 .copyright {
     font-size: 0.8rem;
     color: #444;
@@ -125,7 +129,7 @@ body {
 }
 
 .disclaimer{
-    margin-top: 70px;
+    /* margin-top: 70px; */
     font-size: 11px;
     color: #444;
     padding: 10px;

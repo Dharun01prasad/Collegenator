@@ -10,3 +10,5 @@ if (name) {
 function playAgain() {
     window.location.href = '/';
 }
+
+document.querySelector(".image-section").innerHTML = `<img class="result-image" src="/frontend/images/Results/${name}.jpg" alt="To attach your photo, Mail us @ dharun0110prasad@gmail.com or jaysuriya077@gmail.com">`
