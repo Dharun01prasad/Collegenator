@@ -10,7 +10,9 @@ import uvicorn
 import os
 from pathlib import Path
 import uuid
+from dotenv import load_dotenv
 
+load_dotenv()
 app = FastAPI()
 
 app.add_middleware(
@@ -28,8 +30,8 @@ app.mount("/frontend", StaticFiles(directory=str(BASE_DIR / "frontend")), name="
 try:
     with open(BASE_DIR / 'Data' / 'questions.json', 'r') as f:
         questions_set = json.load(f)
-    sheet_url = "https://docs.google.com/spreadsheets/d/1URVOToAnoENffjCJlRAw3hMaE8k33v4W/export?format=xlsx"
-    mainDf = pd.read_excel(sheet_url)
+    SHEET_URL = os.getenv("SHEET_URL")
+    mainDf = pd.read_excel(SHEET_URL)
 except FileNotFoundError as e:
     print(f"ERROR: Could not find data files: {e}")
     print(f"Current directory: {os.getcwd()}")
