@@ -1,357 +1,504 @@
+/* ====================================================
+   CLASSMATE ORACLE — index.css
+   Dark Mystical Oracle theme
+   Fonts: Cinzel (headings) + Nunito (body)
+   All original class names preserved for JS compatibility
+   ==================================================== */
+
+/* ========== RESET ========== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ========== CSS VARIABLES ========== */
+:root {
+    --gold:         #f5a623;
+    --gold-soft:    rgba(245, 166, 35, 0.25);
+    --card-bg:      rgba(7, 5, 22, 0.82);
+    --card-border:  rgba(245, 166, 35, 0.22);
+    --text-bright:  #f0e6d3;
+    --text-muted:   rgba(240, 230, 210, 0.45);
+    --font-display: 'Cinzel', serif;
+    --font-body:    'Nunito', sans-serif;
+}
+
+/* ========== BODY & BACKGROUND ========== */
 body {
     background-image: url('/frontend/images/final.png');
     background-repeat: no-repeat;
-    background-color: black;
+    background-color: #1a0e2e;
     background-attachment: fixed;
     background-size: cover;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-body);
     min-height: 100vh;
-    position: relative;
     overflow-x: hidden;
+    /* No dark overlay — full background brightness preserved */
 }
 
-/* ========== DESKTOP LAYOUT ========== */
+/* ========== STAR PARTICLES OVERLAY ========== */
+.stars-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+        radial-gradient(1px 1px at  9% 12%, rgba(255,255,255,0.70) 0%, transparent 100%),
+        radial-gradient(1px 1px at 24%  7%, rgba(255,255,255,0.50) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 44% 19%, rgba(245,166,35,0.55) 0%, transparent 100%),
+        radial-gradient(1px 1px at 68%  4%, rgba(255,255,255,0.55) 0%, transparent 100%),
+        radial-gradient(1px 1px at 84% 14%, rgba(255,255,255,0.40) 0%, transparent 100%),
+        radial-gradient(1px 1px at 14% 38%, rgba(255,255,255,0.30) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 58% 33%, rgba(245,166,35,0.45) 0%, transparent 100%),
+        radial-gradient(1px 1px at 91% 44%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 58%, rgba(255,255,255,0.22) 0%, transparent 100%),
+        radial-gradient(1px 1px at 76% 68%, rgba(245,166,35,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at  4% 74%, rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 52% 82%, rgba(255,255,255,0.28) 0%, transparent 100%),
+        radial-gradient(1px 1px at 19% 91%, rgba(245,166,35,0.28) 0%, transparent 100%),
+        radial-gradient(1px 1px at 81% 89%, rgba(255,255,255,0.38) 0%, transparent 100%),
+        radial-gradient(1px 1px at 41% 95%, rgba(255,255,255,0.25) 0%, transparent 100%);
+    animation: twinkle 7s ease-in-out infinite alternate;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes twinkle {
+    0%   { opacity: 0.5; }
+    100% { opacity: 0.95; }
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0);     }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px);  }
+    50%       { transform: translateY(-16px); }
+}
+
+@keyframes shimmer {
+    0%        { left: -120%; }
+    55%, 100% { left:  160%; }
+}
+
+/* ========== HEADER — stays fixed at top ========== */
 .SignInPageHeader {
     position: fixed;
-    top: 40px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     z-index: 10;
+    animation: fadeDown 0.85s ease forwards;
 }
 
+.header {
+    height: 100px;
+    max-width: 100%;
+    display: block;
+}
 
+/* ========== MAIN PAGE — natural viewport-centred flow ========== */
+/*
+ * KEY FIX: was "position: fixed; top: 200px" which caused scroll-trap.
+ * Now uses min-height: 100vh + padding-top so content sits under the
+ * fixed header and is vertically centred, while remaining scrollable
+ * if the viewport is short.
+ */
 .SignInPage {
-    position: fixed;
-    top: 200px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 40px;
+    justify-content: center;
+    min-height: 100vh;
+    /* padding-top pushes content below the fixed header */
+    padding: 145px 20px 40px;
+    gap: 18px;
     width: 100%;
-    padding: 20px;
 }
 
+/* ========== GENIE IMAGE — in normal flex flow ========== */
 .akinator-image-div {
     position: relative;
     text-align: center;
 }
 
-.akinator-genie-stand-alone {
-    height: 500px;
-    max-width: 100%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
+/* Warm glow orb under the genie */
+.genie-glow {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 40px;
+    background: radial-gradient(ellipse, rgba(245, 166, 35, 0.38) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(8px);
+    pointer-events: none;
 }
 
+.akinator-genie-stand-alone {
+    height: 220px;          /* compact default; overridden per breakpoint */
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    animation: float 5s ease-in-out infinite;
+    filter: drop-shadow(0 6px 28px rgba(245, 166, 35, 0.30));
+    transition: filter 0.35s ease;
+}
+
+.akinator-genie-stand-alone:hover {
+    filter: drop-shadow(0 6px 44px rgba(245, 166, 35, 0.60));
+}
+
+/* ========== CONTAINER ========== */
 .container {
     position: relative;
     width: 100%;
+    max-width: 440px;
     display: flex;
     justify-content: center;
 }
 
+/* ========== FORM CARD ========== */
 .form-card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 50px 45px;
+    position: relative;
+    overflow: hidden;
+    background: var(--card-bg);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 34px 40px;
     width: 100%;
-    max-width: 550px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 0 0 1px rgba(245, 166, 35, 0.06),
+        0 20px 56px rgba(0, 0, 0, 0.48),
+        0 0 70px rgba(245, 166, 35, 0.04) inset;
+    animation: fadeUp 0.9s 0.2s ease both;
 }
 
+/* Gold shimmer line across the top edge */
+.form-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+/* Soft inner glow at card bottom */
+.form-card::after {
+    content: '';
+    position: absolute;
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.06) 0%, transparent 68%);
+    pointer-events: none;
+}
+
+/* ========== CARD TYPOGRAPHY ========== */
 h1 {
-    margin: 0 0 35px 0;
-    font-size: 42px;
-    color: #555;
+    margin: 0 0 14px 0;
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--text-bright);
     text-align: center;
 }
 
 h1 span {
-    color: #ff6600;
-    font-weight: 700;
+    color: var(--gold);
+    font-weight: 900;
+    text-shadow: 0 0 26px rgba(245, 166, 35, 0.55);
 }
 
-.submit {
-    width: 100%;
-    background: linear-gradient(to right, #ff7b00, #ff5500);
-    color: #fff;
-    font-size: 22px;
+/* Decorative gold rule */
+.card-divider {
+    width: 52px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    border-radius: 2px;
+    margin: 0 auto 15px;
+    opacity: 0.7;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 13px;
     font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    margin-bottom: 26px;
+}
+
+/* ========== SUBMIT BUTTON ========== */
+.submit {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: linear-gradient(135deg, #ff8c00 0%, #ff4500 100%);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     border: none;
     border-radius: 14px;
-    padding: 20px 0;
+    padding: 18px 0;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 68px;
+    min-height: 56px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 20px rgba(255, 100, 0, 0.38);
+}
+
+/* Shimmer sweep */
+.submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.28) 50%,
+        transparent 100%
+    );
+    animation: shimmer 3.2s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .submit:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 85, 0, 0.5);
+    box-shadow: 0 10px 28px rgba(255, 80, 0, 0.58);
 }
 
 .submit:active {
     transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(255, 80, 0, 0.42);
 }
 
+
+/* ====================================================
+   RESPONSIVE BREAKPOINTS
+   ==================================================== */
+
+/* ========== DESKTOP — 1201px+ ========== */
+/* Viewport calc: 900px height → 900 - 168px padding - 40px bottom = 692px room
+   Genie 360px + gap 22px + card ~285px = 667px → fits with 25px spare ✅       */
 @media only screen and (min-width: 1201px) and (pointer: fine) {
-    .SignInPageHeader {
-        top: 40px;        /* ← Adjust header position */
-    }
-    .header {
-        height: 120px;
-    }
-    .akinator-image-div a {
-    display: block;
-    width: 400px;
-    height: 300px;
-    }
+    .header { height: 120px; }
+
     .SignInPage {
-        top: 200px;       /* ← Adjust main container position */
-        gap: 40px;        /* ← Adjust spacing between genie and form */
+        padding-top: 168px;   /* header 120px + 28px buffer */
+        gap: 22px;
     }
-    
-    .akinator-genie-stand-alone {
-       height: 400px;
-        position: fixed;
-        top: -50px;
-        left: 50%;
-        transform: translateX(-50%);
+
+    .akinator-genie-stand-alone { height: 360px; }
+
+    .container { max-width: 500px; }
+
+    .form-card { padding: 42px 50px; }
+
+    h1 {
+        font-size: 44px;
+        margin-bottom: 16px;
     }
-    
-    .form-card {
-        max-width: 400px;
-        padding: 20px;
-        margin-top: 10px;
+
+    .form-subtitle {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .submit {
+        font-size: 18px;
+        min-height: 62px;
+        padding: 20px 0;
     }
 }
 
-/* ========== TABLET - TOUCH DEVICES ========== */
+/* ========== TABLET (TOUCH) — up to 1200px ========== */
 @media only screen and (max-width: 1200px) and (pointer: coarse) {
-    .SignInPageHeader {
-        top: 60px;
-    }
-    
-    .header {
-        height: 150px;
-    }
-    
+    .SignInPageHeader { top: 28px; }
+    .header { height: 140px; }
+
     .SignInPage {
-        gap: 60px;
+        padding-top: 192px;
+        gap: 28px;
     }
-    
-    .akinator-genie-stand-alone {
-        height: 550px;
-    }
-    
-    .form-card {
-        padding: 55px 50px;
-    }
-    
+
+    .akinator-genie-stand-alone { height: 350px; }
+
+    .container { max-width: 520px; }
+
+    .form-card { padding: 44px 48px; }
+
     h1 {
-        font-size: 46px;
-        margin-bottom: 38px;
+        font-size: 44px;
+        margin-bottom: 14px;
     }
-    
+
     .submit {
-        font-size: 26px;
-        min-height: 80px;
-        padding: 24px 0;
+        font-size: 22px;
+        min-height: 76px;
+        padding: 22px 0;
     }
 }
 
-/* ========== LAPTOP - SMALLER SCREENS ========== */
+/* ========== LAPTOP — up to 1200px, pointer: fine ========== */
+/* Viewport calc: 768px height → 768 - 140px padding - 40px bottom = 588px room
+   Genie 260px + gap 20px + card ~265px = 545px → fits with 43px spare ✅        */
 @media only screen and (max-width: 1200px) and (pointer: fine) {
-    .SignInPageHeader {
-        top: 30px;
-    }
-    
-    .header {
-        height: 100px;
-    }
-    
+    .SignInPageHeader { top: 16px; }
+    .header { height: 100px; }
+
     .SignInPage {
-        gap: 50px;
+        padding-top: 140px;   /* header 100px + 30px buffer */
+        gap: 20px;
     }
-    
-    .akinator-genie-stand-alone {
-        height: 300px;
-        top: 0px;
-        left: 100px;
-    }
-    
-    .form-card {
-        padding: 40px 38px;
-        max-width: 380px;
-    }
-    
-    h1 {
-        font-size: 36px;
-        margin-bottom: 28px;
-    }
-    
+
+    .akinator-genie-stand-alone { height: 260px; }
+
+    .container { max-width: 420px; }
+
+    .container { margin-top: -70px; }
+
+    .form-card { padding: 34px 38px; }
+
+    h1 { font-size: 36px; }
+
     .submit {
-        font-size: 19px;
-        min-height: 60px;
+        font-size: 16px;
+        min-height: 56px;
         padding: 17px 0;
     }
 }
 
 @media only screen and (max-width: 980px) and (pointer: fine) {
-    .SignInPage {
-        gap: 30px;
-    }
-    
-    .akinator-genie-stand-alone {
-        height: 350px;
-    }
-    
+    .akinator-genie-stand-alone { height: 220px; }
+
     .form-card {
-        padding: 35px 32px;
-        max-width: 350px;
+        padding: 30px 32px;
+        max-width: 390px;
     }
-    
+
+    h1 { font-size: 32px; }
+}
+
+/* ========== MOBILE — up to 768px ========== */
+/*
+ * Header goes static (no longer fixed) so it scrolls with content.
+ * No need for !important overrides since SignInPage is already in flow.
+ */
+@media only screen and (max-width: 768px) {
+    .SignInPageHeader {
+        position: static;
+        transform: none;
+        left: auto;
+        top: auto;
+        padding: 22px 0 0;
+        text-align: center;
+        animation: none;
+        opacity: 1;
+    }
+
+    .header {
+        height: 90px;
+        max-width: 80%;
+        display: inline-block;
+    }
+
+    .SignInPage {
+        min-height: auto;
+        padding: 20px 20px 48px;
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
+    /* Genie hidden on mobile */
+    .akinator-image-div { display: none; }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-card {
+        padding: 36px 28px;
+        border-radius: 20px;
+    }
+
     h1 {
-        font-size: 32px;
-        margin-bottom: 25px;
+        font-size: 34px;
+        margin-bottom: 13px;
     }
-    
+
+    .form-subtitle {
+        font-size: 13px;
+        margin-bottom: 28px;
+    }
+
     .submit {
         font-size: 18px;
-        min-height: 56px;
+        min-height: 66px;
+        padding: 20px 0;
     }
 }
 
-/* ========== MOBILE - VERTICAL STACK ========== */
-@media only screen and (max-width: 768px) {
-    body {
-        display: block !important;
-        height: auto !important;
-        min-height: 100vh !important;
-        padding: 20px !important;
-    }
-    
-    .SignInPageHeader {
-        position: static !important;
-        display: block !important;
-        padding: 10px 0 !important;
-        text-align: center !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-    }
-    
-    .header {
-        height: 140px !important;
-        max-width: 95% !important;
-        display: inline-block !important;
-        margin: 10px 0 !important;
-    }
-    
-    .SignInPage {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 20px !important;
-        padding: 10px 15px !important;
-        min-height: auto !important;
-    }
-    
-    /* GENIE IMAGE - HIDDEN ON MOBILE */
-    .akinator-image-div {
-        display: none !important;
-    }
-    
-    .akinator-genie-stand-alone {
-        display: none !important;
-    }
-    
-    .container {
-        width: 100% !important;
-        max-width: 540px !important;
-    }
-    
-    .form-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 45px 35px !important;
-        border-radius: 18px !important;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
-    }
-    
-    h1 {
-        font-size: 38px !important;
-        margin-bottom: 35px !important;
-        font-weight: 700 !important;
-    }
-    
-    .submit {
-        font-size: 24px !important;
-        min-height: 75px !important;
-        padding: 22px 0 !important;
-        border-radius: 14px !important;
-        font-weight: 700 !important;
-    }
-}
-
+/* ========== SMALL MOBILE — up to 480px ========== */
 @media only screen and (max-width: 480px) {
-    .SignInPageHeader {
-        padding: 12px 0 !important;
+    .header { height: 72px; }
+
+    .form-card { padding: 30px 22px; }
+
+    h1 { font-size: 28px; }
+
+    .form-subtitle {
+        font-size: 12px;
+        margin-bottom: 24px;
     }
-    
-    .header {
-        height: 60px !important;
-    }
-    
-    .SignInPage {
-        gap: 30px !important;
-        padding: 15px 10px !important;
-    }
-    
-    .form-card {
-        padding: 38px 28px !important;
-    }
-    
-    h1 {
-        font-size: 32px !important;
-        margin-bottom: 30px !important;
-    }
-    
+
     .submit {
-        font-size: 21px !important;
-        min-height: 68px !important;
-        padding: 20px 0 !important;
+        font-size: 16px;
+        min-height: 60px;
     }
 }
 
+/* ========== XS MOBILE — up to 360px ========== */
 @media only screen and (max-width: 360px) {
-    .header {
-        height: 52px !important;
-    }
-    
-    .form-card {
-        padding: 32px 24px !important;
-    }
-    
-    h1 {
-        font-size: 28px !important;
-        margin-bottom: 26px !important;
-    }
-    
+    .header { height: 60px; }
+
+    .form-card { padding: 26px 18px; }
+
+    h1 { font-size: 24px; }
+
+    .form-subtitle { font-size: 11px; }
+
     .submit {
-        font-size: 19px !important;
-        min-height: 64px !important;
-        padding: 18px 0 !important;
+        font-size: 14px;
+        min-height: 54px;
+        padding: 16px 0;
     }
 }
